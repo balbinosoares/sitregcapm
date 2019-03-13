@@ -11,32 +11,25 @@ service AdminService {
 
 
     ) as projection on sitreg.Event;      
-    entity Organizers as projection on sitreg.Organizers;
-    entity CoOrganizers as projection on sitreg.CoOrganizers{
+    entity Organizers @readonly as projection on sitreg.Organizers;
+    entity CoOrganizers @readonly as projection on sitreg.CoOrganizers{
         *,
         Event: redirected to Events
         
     };
-    entity Participants @(        
-        Capabilities: {
-            InsertRestrictions: {Insertable: false},
-            UpdateRestrinctions: {Updatable: false},
-            DeleteRestrictions: {Deletable: false}
-
-        }
-    ) as projection on sitreg.Participant{
+    entity Participants @readonly as projection on sitreg.Participant{
         *,
         Event: redirected to Events
     };
-    entity Devices as projection on sitreg.Devices{
+    entity Devices @readonly as projection on sitreg.Devices{
         *,
         Event: redirected to Events
     };
-    entity PrintQueues as projection on sitreg.PrintQueues{
+    entity PrintQueues @readonly as projection on sitreg.PrintQueues{
         *,
         Event: redirected to Events
     };
-    entity Tickets as projection on sitreg.Tickets{
+    entity Tickets @readonly as projection on sitreg.Tickets{
         *,
         Event: redirected to Events
     };
