@@ -36,7 +36,7 @@ Run the following command to Initialize your local SQLite DB:
 ```sh
 cds deploy --to sqlite:db/sitregcapm.db
 ```
-Do not forget to refresh the local database whenever you changed the datamodel
+Do not forget to repeat this step to initialize the local database whenever you changed the datamodel
 
 ### Setup XSUAA
 To be able to use authenticaiton and the defined scopes (authorization) a XSUAA must be set up.
@@ -60,25 +60,10 @@ then create the service-key:
 cf create-service-key sitregcapm-uaa sitregcapm-uaa-key && cf service-key sitregcapm-uaa sitregcapm-uaa-key
 ```
 
-Copy & paste the resulting json output in the credentials block:
-
-```json
-{
-    "VCAP_SERVICES": {
-        "xsuaa": [
-            {
-                "name": "xsuaa", "label": "xsuaa", "tags": [ "xsuaa" ],
-                "credentials": {
-                }
-            }
-        ]
-    }
-}
-```
-
 ```sh
 cf push sitregcapm --no-start --no-manifest --random-route
 cf bind-service sitregcapm sitregcapm-uaa
+cf restage sitregcapm
 ```
 
 ### Recommended Extensions
